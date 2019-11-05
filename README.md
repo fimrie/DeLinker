@@ -2,7 +2,21 @@
 
 ![](DeLinker.png)
 
-This repository contains our implementation of Deep Generative Models for 3D Compound Design (DeLinker). 
+This repository contains our implementation of [Deep Generative Models for 3D Compound Design](https://www.biorxiv.org/content/10.1101/830497v1) (DeLinker). 
+
+If you found DeLinker useful, please cite our preprint:
+
+```
+@article{Imrie2019DeLinker,
+  title = {Deep Generative Models for 3D Compound Design},
+  author = {Imrie, Fergus and Bradley, Anthony R and van der Schaar, Mihaela and Deane, Charlotte M},
+  journal = {bioRxiv},
+  doi = {10.1101/830497},
+  year = {2019},
+  URL = {https://www.biorxiv.org/content/early/2019/11/04/830497},
+  eprint = {https://www.biorxiv.org/content/early/2019/11/04/830497.full.pdf}
+}
+```
 
 # Requirements
 
