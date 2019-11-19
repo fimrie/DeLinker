@@ -25,7 +25,7 @@ Fragments (SMILES) Full molecule (SMILES)
 For example:
 
 ```
-COc1ccccc1\[\*:2\].Fc1cccc(\[\*:1\])c1 COc1ccccc1CCC(=O)c1cccc(F)c1
+COc1ccccc1[*:2].Fc1cccc([*:1])c1 COc1ccccc1CCC(=O)c1cccc(F)c1
 ```
 
 Now run `prepare_data.py` with the output file as the first argument (see below for details).
@@ -71,7 +71,7 @@ Full molecule (SMILES) Linker (SMILES) Fragments (SMILES) Distance (Angstrom) An
 For example:
 
 ```
-COc1ccccc1CCC(=O)c1cccc(F)c1 O=C(CC\[\*:2\])\[\*:1\] COc1ccccc1\[\*:2\].Fc1cccc(\[\*:1\])c1 4.69 2.00
+COc1ccccc1CCC(=O)c1cccc(F)c1 O=C(CC[*:2])[*:1] COc1ccccc1[*:2].Fc1cccc([*:1])c1 4.69 2.00
 ```
 
 # Contact (Questions/Bugs/Requests)
