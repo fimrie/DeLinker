@@ -1,16 +1,64 @@
 # Data 
 
-We have provided two primary datasets (ZINC and CASF), for which we have pre-computed fragmentations and structural information. These datasets match the dataset utilised in the paper.
+We have provided two primary datasets (ZINC and CASF), for which we have pre-computed fragmentations and structural information. These datasets match the dataset utilised in our paper, [Deep Generative Models for 3D Compound Design](https://www.biorxiv.org/content/10.1101/830497v1).
 
-Extraction
+We have also provided several scripts to allow you to use your own dataset.
 
-Two primary datasets (ZINC and CASF) are in use.
+# To preprocess your own dataset
 
-To preprocess these datasets, please go to `data` directory and run `prepare_data.py`.
+## Option 1: Pre-computed fragmentations
+
+If you have prepared your own fragmentations (two unlinked substructures), run `calculate_distance_angle.py`. 
+
+You will need to supply a data file containing a list of fragments and molecules, and an SD file containing a conformation of each molecule.
+
+'''
+python calculate_distance_angle.py --data_path PATH_TOFILE --sdf_path PATH_TO_FILE --output_path PATH_TO_FILE --verbose
+'''
+
+The format of the data file is: Fragments (SMILES) Full molecule (SMILES), e.g.
+'''
+COc1ccccc1\[\*:2\].Fc1cccc(\[\*:1\])c1 COc1ccccc1CCC(=O)c1cccc(F)c1
+'''
+
+Now run `prepare_data.py` with the output file as the first argument (see below for details).
+
+## Option 2: SD file of molecules
+
+If you want to simply provide an SD file containing a set of molecules, run `prepare_data_from_sdf.py`.
+
+'''
+python prepare_data_from_sdf --sdf_path PATH_TO_DATA --output_path PATH_TO_FILE --verbose
+'''
+
+This will compute fragmentations and structural information, as per the criteria described in our paper, [Deep Generative Models for 3D Compound Design](https://www.biorxiv.org/content/10.1101/830497v1).
+
+For example, the following command reproduces the CASF dataset entries in `data_casf_final.txt`.
+
+'''
+python calculate_distance_angle.py --sdf_path ../analysis/casf_structures.sdf --output_path data_casf_duplicate.txt --verbose
+'''
+
+Now run `prepare_data.py` with the output file as the first argument (see below for details).
+
+# To use a provided dataset
+
+To process the provided datasets (ZINC and CASF), run `prepare_data.py`.
 
 ```
 python prepare_data.py
 ```
+
+If you want to process your own dataset (having followed the above preprocessing steps), run `prepare_data.py` with the following arguments:
+
+'''
+python prepare_data.py PATH_TO_DATA NAME_OF_DATASET
+'''
+
+The format taken by `prepare_data.py` is: Full molecule (SMILES), Linker (SMILES), Fragments (SMILES), Distance (Angstrom), Angle (Radians), e.g.
+'''
+COc1ccccc1CCC(=O)c1cccc(F)c1 O=C(CC\[\*:2\])\[\*:1\] COc1ccccc1\[\*:2\].Fc1cccc(\[\*:1\])c1 4.69 2.00
+'''
 
 # Contact (Questions/Bugs/Requests)
 
