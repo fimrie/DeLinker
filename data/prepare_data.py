@@ -62,8 +62,15 @@ def preprocess(raw_data, dataset, name):
           
 
 if __name__ == "__main__":
-    data_paths = ['data_zinc_final_train.txt', 'data_zinc_final_valid.txt', 'data_zinc_final_test.txt', 'data_casf_final.txt']
-    names = ['zinc_train', 'zinc_valid', 'zinc_test', 'casf_test']
+    if len(sys.argv) == 1:
+        data_paths = ['data_zinc_final_train.txt', 'data_zinc_final_valid.txt', 'data_zinc_final_test.txt', 'data_casf_final.txt']
+        names = ['zinc_train', 'zinc_valid', 'zinc_test', 'casf_test']
+    elif len(sys.argv) == 3:
+        data_paths = [sys.argv[1]]
+        names = [sys.argv[2]]
+    else:
+        print("Incorrect number of arguments provided. Please check the README for useage.")
+        exit()
 
     for data_path, name in zip(data_paths, names):
         print("Preparing: %d", name)
