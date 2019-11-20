@@ -55,10 +55,16 @@ To generate molecules with a pretrained model using the first setting, use
 python DeLinker.py --dataset zinc --restore models/pretrained_DeLinker_model.pickle --config '{"generation": true, "number_of_generation_per_valid": 250, "batch_size": 1, "train_file": "data/molecules_zinc_test.json", "valid_file": "data/molecules_zinc_test.json"}'
 ```
 
-To generate molecules using the second setting, use the following command.
+To generate molecules using the second setting, use
 
 ```
-python DeLinker_test.py --dataset zinc --restore models/pretrained_DeLinker_model.pickle --config '{"generation": true, "number_of_generation_per_valid": 250, "batch_size": 1, "train_file": "data/molecules_zinc_test_mode2.json", "valid_file": "data/molecules_zinc_test_mode2.json", "min_atoms": 3, "max_atoms": 11}'
+python DeLinker_test.py --dataset zinc --restore models/pretrained_DeLinker_model.pickle --config '{"generation": true, "number_of_generation_per_valid": 250, "batch_size": 1, "train_file": "data/molecules_zinc_test.json", "valid_file": "data/molecules_zinc_test.json"}'
+```
+
+In both cases, the output is of the following format:
+
+```
+Input fragments (SMILES) Ground truth molecule/fragments (SMILES) Generated molecule (SMILES)
 ```
 
 More configurations can be found at function `default_params` in `DeLinker.py`.
