@@ -58,7 +58,7 @@ python DeLinker.py --dataset zinc --restore models/pretrained_DeLinker_model.pic
 To generate molecules using the second setting, use
 
 ```
-python DeLinker_test.py --dataset zinc --restore models/pretrained_DeLinker_model.pickle --config '{"generation": true, "number_of_generation_per_valid": 250, "batch_size": 1, "train_file": "data/molecules_zinc_test.json", "valid_file": "data/molecules_zinc_test.json"}'
+python DeLinker_test.py --dataset zinc --restore models/pretrained_DeLinker_model.pickle --config '{"generation": true, "number_of_generation_per_valid": 250, "batch_size": 1, "train_file": "data/molecules_zinc_test_mode2.json", "valid_file": "data/molecules_zinc_test_mode2.json", "min_atoms": 3, "max_atoms": 11}'
 ```
 
 In both cases, the output is of the following format:
