@@ -1,6 +1,18 @@
 #!/usr/bin/env/python
+"""
+Usage:
+    prepare_data.py [options]
+
+Options:
+    -h --help                Show this screen
+    --data_path FILE         Path to data file containing fragments and reference molecules
+    --dataset_name NAME      Name of dataset (for use in output file naming)
+    --test_mode              To prepare the data for DeLinker in test mode
+"""
+
 import sys, os
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
+from docopt import docopt
 from rdkit import Chem
 from rdkit.Chem import rdmolops
 from rdkit.Chem import rdFMCS
@@ -18,7 +30,16 @@ def read_file(file_path):
     num_lines = len(lines)
     data = []
     for i, line in enumerate(lines):
-        smi_mol, smi_linker, smi_frags, abs_dist, angle = line.strip().split(' ')
+        toks = line.strip().split(' ')
+        if len(toks) == 3:
+            smi_frags, abs_dist, angle = toks
+            smi_mol = smi_frags
+            smi_linker = ''
+        elif len(toks) == 5:
+            smi_mol, smi_linker, smi_frags, abs_dist, angle = toks
+        else:
+            print("Incorrect input format. Please check the README for useage.")
+            exit()
         data.append({'smi_mol': smi_mol, 'smi_linker': smi_linker, 
                      'smi_frags': smi_frags,
                      'abs_dist': [abs_dist,angle]})
@@ -27,12 +48,15 @@ def read_file(file_path):
     print('Finished reading: %d / %d' % (num_lines, num_lines))
     return data
 
-def preprocess(raw_data, dataset, name):
+def preprocess(raw_data, dataset, name, test=False):
     print('Parsing smiles as graphs.')
     processed_data =[]
     total = len(raw_data)
     for i, (smi_mol, smi_frags, smi_link, abs_dist) in enumerate([(mol['smi_mol'], mol['smi_frags'], 
                                                                    mol['smi_linker'], mol['abs_dist']) for mol in raw_data]):
+        if test:
+            smi_mol = smi_frags
+            smi_link = ''
         (mol_out, mol_in), nodes_to_keep, exit_points = align_mol_to_frags(smi_mol, smi_link, smi_frags)
         if mol_out == []:
             continue
@@ -62,17 +86,18 @@ def preprocess(raw_data, dataset, name):
           
 
 if __name__ == "__main__":
-    if len(sys.argv) == 1:
-        data_paths = ['data_zinc_final_train.txt', 'data_zinc_final_valid.txt', 'data_zinc_final_test.txt', 'data_casf_final.txt']
-        names = ['zinc_train', 'zinc_valid', 'zinc_test', 'casf_test']
-    elif len(sys.argv) == 3:
-        data_paths = [sys.argv[1]]
-        names = [sys.argv[2]]
+    # Parse args
+    args = docopt(__doc__)
+    if args.get('--data_path') and args.get('--dataset_name'):
+        data_paths = [args.get('--data_path')]
+        names = [args.get('--dataset_name')]
     else:
-        print("Incorrect number of arguments provided. Please check the README for useage.")
-        exit()
+        data_paths = ['data_zinc_final_train.txt', 'data_zinc_final_valid.txt', 'data_zinc_final_test.txt', 'data_zinc_final_test.txt', 'data_casf_final.txt']
+        names = ['zinc_train', 'zinc_valid', 'zinc_test', 'zinc_test_mode2', 'casf_test']
+
+    test_mode = args.get('--test_mode')
 
     for data_path, name in zip(data_paths, names):
         print("Preparing: %d", name)
         raw_data = read_file(data_path)
-        preprocess(raw_data, dataset, name)
+        preprocess(raw_data, dataset, name, test_mode)

@@ -50,7 +50,7 @@ Now run `prepare_data.py` with the output file as the first argument (see below 
 
 # To use a provided dataset
 
-To process the provided datasets (ZINC and CASF), run `prepare_data.py`.
+To process the provided datasets (ZINC and CASF), run `prepare_data.py`. This allows you to train, validate and generate molecules using `DeLinker.py`. Generated molecules will have a linker with at most the same number of atoms as the reference molecule provided.
 
 ```
 python prepare_data.py
@@ -59,7 +59,7 @@ python prepare_data.py
 If you want to process your own dataset (having followed the above preprocessing steps), run `prepare_data.py` with the following arguments:
 
 ```
-python prepare_data.py PATH_TO_DATA NAME_OF_DATASET
+python prepare_data.py --data_path PATH_TO_DATA --dataset_name NAME_OF_DATASET
 ```
 
 The format taken by `prepare_data.py` is: 
@@ -73,6 +73,20 @@ For example:
 ```
 COc1ccccc1CCC(=O)c1cccc(F)c1 O=C(CC[*:2])[*:1] COc1ccccc1[*:2].Fc1cccc([*:1])c1 4.69 2.00
 ```
+
+If you want to use `DeLinker_test.py` (which generates linkers with a specified number of atoms), run `prepare_data` with the following arguments:
+
+```
+python prepare_data.py --data_path PATH_TO_DATA --dataset_name NAME_OF_DATASET --test_mode
+```
+
+`prepare_data.py` takes two possible input formats, listed below.
+
+```
+Fragments (SMILES) Distance (Angstrom) Angle (Radians)
+Full molecule (SMILES) Linker (SMILES) Fragments (SMILES) Distance (Angstrom) Angle (Radians)
+```
+
 
 # Contact (Questions/Bugs/Requests)
 

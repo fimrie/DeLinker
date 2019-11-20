@@ -109,6 +109,8 @@ class DenseGGNNChemModel(ChemModel):
                         'edge_weight_dropout_keep_prob': 1,
                         'check_overlap_edge': False,
                         "truncate_distance": 10,
+                        "min_atoms": 3,
+                        "max_atoms": 11,
                         })
 
         return params
@@ -702,32 +704,33 @@ class DenseGGNNChemModel(ChemModel):
             # total number of nodes in this data point out
             n_active_nodes_in = len(d["node_features_in"])
             n_active_nodes_out = len(d["node_features_out"])
-            bucketed[chosen_bucket_idx].append({
-                'adj_mat_in': graph_to_adj_mat(d['graph_in'], chosen_bucket_size, self.num_edge_types, self.params['tie_fwd_bkwd']),
-                'adj_mat_out': graph_to_adj_mat(d['graph_out'], chosen_bucket_size, self.num_edge_types, self.params['tie_fwd_bkwd']),
-                'v_to_keep': node_keep_to_dense(d['v_to_keep'], chosen_bucket_size), 
-                'exit_points': d['exit_points'],
-                'abs_dist': d['abs_dist'],
-                'it_num': 0,
-                'incre_adj_mat_out': incremental_result_1[0],
-                'distance_to_others_out': incremental_result_1[1],
-                'overlapped_edge_features_out': incremental_result_1[8],
-                'node_sequence_out': incremental_result_1[2],
-                'edge_type_masks_out': incremental_result_1[3],
-                'edge_type_labels_out': incremental_result_1[4],
-                'edge_masks_out': incremental_result_1[6],
-                'edge_labels_out': incremental_result_1[7],
-                'local_stop_out': incremental_result_1[5],
-                'number_iteration_out': len(incremental_result_1[5]),
-                'init_in': d["node_features_in"] + [[0 for _ in range(x_dim)] for __ in
-                                              range(chosen_bucket_size - n_active_nodes_in)],
-                'init_out': d["node_features_out"] + [[0 for _ in range(x_dim)] for __ in
-                                              range(chosen_bucket_size - n_active_nodes_out)],
-                'mask_in': [1. for _ in range(n_active_nodes_in) ] + [0. for _ in range(chosen_bucket_size - n_active_nodes_in)],
-                'mask_out': [1. for _ in range(n_active_nodes_out) ] + [0. for _ in range(chosen_bucket_size - n_active_nodes_out)],
-                'smiles_in': d['smiles_in'],
-                'smiles_out': d['smiles_out'],
-                'dists': d['dists'],
+            for n_atoms in range(self.params["min_atoms"], self.params["max_atoms"]+1):
+                bucketed[chosen_bucket_idx].append({
+                    'adj_mat_in': graph_to_adj_mat(d['graph_in'], chosen_bucket_size, self.num_edge_types, self.params['tie_fwd_bkwd']),
+                    'adj_mat_out': graph_to_adj_mat(d['graph_out'], chosen_bucket_size, self.num_edge_types, self.params['tie_fwd_bkwd']),
+                    'v_to_keep': node_keep_to_dense(d['v_to_keep'], chosen_bucket_size), 
+                    'exit_points': d['exit_points'],
+                    'abs_dist': d['abs_dist'],
+                    'it_num': 0,
+                    'incre_adj_mat_out': incremental_result_1[0],
+                    'distance_to_others_out': incremental_result_1[1],
+                    'overlapped_edge_features_out': incremental_result_1[8],
+                    'node_sequence_out': incremental_result_1[2],
+                    'edge_type_masks_out': incremental_result_1[3],
+                    'edge_type_labels_out': incremental_result_1[4],
+                    'edge_masks_out': incremental_result_1[6],
+                    'edge_labels_out': incremental_result_1[7],
+                    'local_stop_out': incremental_result_1[5],
+                    'number_iteration_out': len(incremental_result_1[5]),
+                    'init_in': d["node_features_in"] + [[0 for _ in range(x_dim)] for __ in
+                                                  range(chosen_bucket_size - n_active_nodes_in)],
+                    'init_out': d["node_features_out"] + [[0 for _ in range(x_dim)] for __ in
+                                                  range(chosen_bucket_size - n_active_nodes_out)],
+                    'mask_in': [1. for _ in range(n_active_nodes_in) ] + [0. for _ in range(chosen_bucket_size - n_active_nodes_in)],
+                    'mask_out': [1. for _ in range(n_active_nodes_out) ] + [0. for _ in range(chosen_bucket_size - n_active_nodes_out)],
+                    'smiles_in': d['smiles_in'],
+                    'smiles_out': d['smiles_out'],
+                    'dists': [n_atoms],
             })
 
         if is_training_data:
