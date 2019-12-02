@@ -303,6 +303,7 @@ class ChemModel(object):
                 # Run epoches for graph generation
                 if epoch >= self.params['epoch_to_generate']:
                     self.generate_new_graphs(self.valid_data)
+                    break
 
     def save_model(self, path: str) -> None:
         weights_to_save = {}

@@ -1105,8 +1105,6 @@ class DenseGGNNChemModel(ChemModel):
             for line in generated_all_smiles:
                 out_file.write(line + '\n')
 
-        exit(0)
-
     def make_minibatch_iterator(self, data, is_training: bool):
         (bucketed, bucket_sizes, bucket_at_step) = data
         if is_training:
