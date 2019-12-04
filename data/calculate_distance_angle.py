@@ -52,6 +52,10 @@ if __name__ == "__main__":
     # Get linkers
     du = Chem.MolFromSmiles('*')
     for i, d in enumerate(data_filt):
+        # Standardise SMILES to RDKit
+        d[0]=Chem.MolToSmiles(Chem.MolFromSmiles(d[0]))
+        d[1]=Chem.MolToSmiles(Chem.MolFromSmiles(d[1]))
+        # Get linker
         clean_frag = Chem.RemoveHs(AllChem.ReplaceSubstructs(Chem.MolFromSmiles(d[0]),du,Chem.MolFromSmiles('[H]'),True)[0]) 
         linker = frag_utils.get_linker(Chem.MolFromSmiles(d[1]), clean_frag, d[0])
         linker = re.sub('[0-9]+\*', '*', linker)
@@ -70,7 +74,7 @@ if __name__ == "__main__":
     # Format: full_mol (SMILES), linker (SMILES), fragments (SMILES), distance (Angstrom), angle (Radians)
     with open(output_path, 'w') as f:
         for d, dist, ang in zip(data_final, distances, angles):
-            f.write("%s %s %s %s %s\n" % (d[1], d[2], d[0], dist, ang))
+            f.write("%s %s %s %s %s\n" % (d[0], d[1], d[2], dist, ang))
 
     if verbose:
         print("Done")

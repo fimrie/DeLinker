@@ -13,7 +13,7 @@ If you have prepared your own fragmentations (two unlinked substructures), run `
 You will need to supply a data file containing a list of fragments and molecules, and an SD file containing a conformation of each molecule.
 
 ```
-python calculate_distance_angle.py --data_path PATH_TOFILE --sdf_path PATH_TO_FILE --output_path PATH_TO_FILE --verbose
+python calculate_distance_angle.py --data_path PATH_TO_FILE --sdf_path PATH_TO_FILE --output_path PATH_TO_FILE --verbose
 ```
 
 The format of the data file is: 
