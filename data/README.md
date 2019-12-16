@@ -38,7 +38,7 @@ If you want to simply provide an SD file containing a set of molecules, run `pre
 python prepare_data_from_sdf --sdf_path PATH_TO_DATA --output_path PATH_TO_FILE --verbose
 ```
 
-This will compute fragmentations and structural information, as per the criteria described in our paper, [Deep Generative Models for 3D Compound Design](https://www.biorxiv.org/content/10.1101/830497v1).
+This will compute fragmentations and structural information, as per the criteria described in our paper, [Deep Generative Models for 3D Compound Design](https://www.biorxiv.org/content/10.1101/830497v1). If you do not want to filter the fragmentations using the 2D chemical property filters described in our paper, add the flag `--no_filters` to the above command.
 
 For example, the following command reproduces the CASF dataset entries in `data_casf_final.txt`.
 

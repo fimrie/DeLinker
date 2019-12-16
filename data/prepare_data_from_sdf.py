@@ -7,6 +7,7 @@ Options:
     -h --help                Show this screen
     --sdf_path FILE          Path to SD file containing conformers of reference molecules
     --output_path FILE       Path to output file
+    --no_filters             Do not check 2D chemical properties of fragmentations
     --verbose                Print progress and updates to terminal
 """
 
@@ -22,6 +23,7 @@ if __name__ == "__main__":
     args = docopt(__doc__)
     sdf_path = args.get('--sdf_path')
     output_path = args.get('--output_path')
+    no_filters = args.get('--no_filters')
     verbose = args.get('--verbose')
     
     # Load data
@@ -63,7 +65,10 @@ if __name__ == "__main__":
         print("Num fragmentations: \t%d" % len(fragmentations))
 
     # Filter fragmentions based on 2D properties
-    fragmentations_filt = frag_utils.check_2d_filters_dataset(fragmentations, n_cores=6)
+    if no_filters:
+        fragmentations_filt = fragmentations
+    else:
+        fragmentations_filt = frag_utils.check_2d_filters_dataset(fragmentations, n_cores=3)
 
     print("Number fragmentations: \t\t%d" % len(fragmentations))
     print("Number passed 2D filters: \t%d" % len(fragmentations_filt))
