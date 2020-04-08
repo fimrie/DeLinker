@@ -76,7 +76,7 @@ More configurations can be found at function `default_params` in `DeLinker.py`.
 
 # Evaluation
 
-A script to evaluate the generated molecules is provided in `analysis` directory
+A script to evaluate the generated molecules is provided in `analysis` directory.
 
 ```
 python evaluate_generated_mols.py ZINC|CASF PATH_TO_GENERATED_MOLS PATH_TO_REFERENCE_MOLS ../data/data_zinc_final_train.txt SAVE_PATH OUTPUT_NAME NUM_CORES True None ./wehi_pains.csv >> log.txt
@@ -94,7 +94,7 @@ Generated molecules can be obtained upon request.
 
 # Examples
 
-An example Jupyter notbook demonstrating the use of DeLinker for fragment linking can be found under Examples.
+An example Jupyter notbook demonstrating the use of DeLinker for fragment linking can be found in the `examples` directory.
 
 # Contact (Questions/Bugs/Requests)
 
