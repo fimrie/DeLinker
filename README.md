@@ -1,20 +1,25 @@
-# DeLinker - Deep Generative Models for 3D Compound Design
+# DeLinker - Deep Generative Models for 3D Linker Design
 
 ![](DeLinker.png)
 
-This repository contains our implementation of [Deep Generative Models for 3D Compound Design](https://www.biorxiv.org/content/10.1101/830497v1) (DeLinker). 
+This repository contains our implementation of [Deep Generative Models for 3D Linker Design](https://pubs.acs.org/doi/10.1021/acs.jcim.9b01120) (DeLinker). 
 
-If you found DeLinker useful, please cite our preprint:
+If you found DeLinker useful, please cite our paper:
+
+Imrie F, Bradley AR, van der Schaar M, Deane CM. Deep Generative Models for 3D Linker Design. Journal of Chemical Information and Modeling. 2020
 
 ```
-@article{Imrie2019DeLinker,
-  title = {Deep Generative Models for 3D Compound Design},
-  author = {Imrie, Fergus and Bradley, Anthony R and van der Schaar, Mihaela and Deane, Charlotte M},
-  journal = {bioRxiv},
-  doi = {10.1101/830497},
-  year = {2019},
-  URL = {https://www.biorxiv.org/content/early/2019/11/04/830497},
-  eprint = {https://www.biorxiv.org/content/early/2019/11/04/830497.full.pdf}
+@Article{Imrie2020,
+author={Imrie, Fergus and Bradley, Anthony R. and van der Schaar, Mihaela and Deane, Charlotte M.},
+title={Deep Generative Models for 3D Linker Design},
+journal={Journal of Chemical Information and Modeling},
+year={2020},
+month={Mar},
+day={20},
+publisher={American Chemical Society},
+issn={1549-9596},
+doi={10.1021/acs.jcim.9b01120},
+url={https://doi.org/10.1021/acs.jcim.9b01120}
 }
 ```
 
@@ -86,6 +91,10 @@ models/pretrained_DeLinker_model.pickle
 ```
 
 Generated molecules can be obtained upon request.
+
+# Examples
+
+An example Jupyter notbook demonstrating the use of DeLinker for fragment linking can be found under Examples.
 
 # Contact (Questions/Bugs/Requests)
 
