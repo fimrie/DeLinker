@@ -1100,7 +1100,7 @@ class DenseGGNNChemModel(ChemModel):
         print("Generation done")
         # Save output in non-pickle format
         print("Number of generated SMILES: %d" % len(generated_all_smiles))
-                if self.params['output_name'] != '':
+        if self.params['output_name'] != '':
             file_name = self.params['output_name']
         else:
             file_name = '%s_generated_smiles_%s.smi' % (self.run_id, self.params["dataset"])
