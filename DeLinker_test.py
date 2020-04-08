@@ -111,6 +111,7 @@ class DenseGGNNChemModel(ChemModel):
                         "truncate_distance": 10,
                         "min_atoms": 3,
                         "max_atoms": 11,
+                        "output_name": ''
                         })
 
         return params
@@ -1100,7 +1101,10 @@ class DenseGGNNChemModel(ChemModel):
         print("Generation done")
         # Save output in non-pickle format
         print("Number of generated SMILES: %d" % len(generated_all_smiles))
-        file_name = '%s_generated_smiles_%s.smi' % (self.run_id, self.params["dataset"])
+                if self.params['output_name'] != '':
+            file_name = self.params['output_name']
+        else:
+            file_name = '%s_generated_smiles_%s.smi' % (self.run_id, self.params["dataset"])
         with open(file_name, 'w') as out_file:
             for line in generated_all_smiles:
                 out_file.write(line + '\n')
