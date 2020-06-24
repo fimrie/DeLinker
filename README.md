@@ -23,6 +23,10 @@ url={https://doi.org/10.1021/acs.jcim.9b01120}
 }
 ```
 
+# Acknowledgements
+
+We thank the authors of [Constrained Graph Variational Autoencoders for Molecule Design](https://papers.nips.cc/paper/8005-constrained-graph-variational-autoencoders-for-molecule-design) for releasing their code. The code in this repository is based on their source code release ([link](https://github.com/microsoft/constrained-graph-variational-autoencoder)). If you find this code useful, please consider citing their work.
+
 # Requirements
 
 This code was tested in Python 3.6 with Tensorflow 1.10. 
