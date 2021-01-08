@@ -1067,7 +1067,7 @@ class DenseGGNNChemModel(ChemModel):
         elements['v_to_keep'] = np.pad(elements['v_to_keep'], pad_width=[[0,self.params["compensate_num"]]], mode='constant') # [v] -> [v+comp]
         return maximum_length
 
-    def generate_new_graphs(self, data):
+    def generate_new_graphs(self, data, return_list=False):
         # bucketed: data organized by bucket
         (bucketed, bucket_sizes, bucket_at_step) = data
         bucket_counters = defaultdict(int)
@@ -1107,6 +1107,8 @@ class DenseGGNNChemModel(ChemModel):
         with open(file_name, 'w') as out_file:
             for line in generated_all_smiles:
                 out_file.write(line + '\n')
+        if return_list:
+            return [g.split() for g in generated_all_smiles]
 
     def make_minibatch_iterator(self, data, is_training: bool):
         (bucketed, bucket_sizes, bucket_at_step) = data
